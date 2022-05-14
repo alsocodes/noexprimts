@@ -1,0 +1,35 @@
+import prisma from './db';
+
+const createUser = async () => {
+    await prisma.user.create({
+        data: {
+            name: 'Alice',
+            email: 'alice@prisma.io',
+            posts: {
+                create: { title: 'Hello World' },
+            },
+            profile: {
+                create: { bio: 'I like turtles' },
+            },
+        },
+    });
+};
+
+const createPost = async () => {
+    await prisma.post.create({
+        data: {
+            title: 'Test posting',
+            authorId: 1,
+        },
+    });
+};
+
+const main = async () => {};
+
+main()
+    .catch((e) => {
+        throw e;
+    })
+    .finally(async () => {
+        await prisma.$disconnect();
+    });

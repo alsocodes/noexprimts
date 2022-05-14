@@ -1,0 +1,5 @@
+https://blog.logrocket.com/how-to-set-up-node-typescript-express/
+https://www.robinwieruch.de/prettier-eslint/
+
+Soft Delete
+https://www.prisma.io/docs/concepts/components/prisma-client/middleware/soft-delete-middleware
