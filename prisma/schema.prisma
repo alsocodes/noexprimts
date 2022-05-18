@@ -1,5 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// This is your Prisma schema file
+
+// learn more about it in the docs      Shttps      S/pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
@@ -7,7 +8,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL_DEV")
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -16,16 +17,66 @@ model User {
     name            String
     email           String      @unique
     password        String
+    userType        UserType    @default(admin)
     createdAt       DateTime    @default(now())
     updatedAt       DateTime?   @updatedAt
     deletedAt       DateTime?
 }
 
-model Role {
-    id              Int         @id @default(autoincrement())
-    publicId        String      @db.Uuid
-    name            String
-    createdAt       DateTime    @default(now())
-    updatedAt       DateTime?   @updatedAt
-    deletedAt       DateTime?
+model Event {
+    id                  Int         @id @default(autoincrement())
+    publicId            String      @default(uuid())
+    
+    bridePhoto          String      @db.VarChar(255)
+    brideNickName       String      @db.VarChar(20)
+    brideFullName       String      @db.VarChar(200)
+    brideParent         String      @db.VarChar(255)
+    brideAddress        String      @db.VarChar(500)
+
+    groomPhoto          String      @db.VarChar(255)
+    groomNickName       String      @db.VarChar(20)
+    groomFullName       String      @db.VarChar(200)
+    groomParent         String      @db.VarChar(255)
+    groomAddress        String      @db.VarChar(500)
+    
+    marriageDate        String      @db.VarChar(9)
+    marriageStartTime   String      @db.VarChar(5)
+    marriageEndTime     String      @db.VarChar(5)
+    marriageLocation    String      @db.VarChar(255)
+    marriageAddress     String      @db.VarChar(500)
+  
+    receptionDate       String      @db.VarChar(9)
+    receptionStartTime  String      @db.VarChar(5)
+    receptionEndTime    String      @db.VarChar(5)
+    receptionLocation   String      @db.VarChar(255)
+    receptionAddress    String      @db.VarChar(500)
+  
+    unduhmantuDate      String?      @db.VarChar(9)
+    unduhmantuStartTime String?      @db.VarChar(5)
+    unduhmantuEndTime   String?      @db.VarChar(5)
+    unduhmantuLocation  String?      @db.VarChar(255)
+    unduhmantuAddress   String?      @db.VarChar(500)
+
+    gpsCoordinates      String?
+    maxGuests           Int?         @default(500)
+    maxPhoto            Int?         @default(10)
+    maxVideo            Int?         @default(1)
+    hasGuestBook        Boolean?     @default(true)
+    hasPresent          Boolean?     @default(true)
+    liveUntil           String?      @db.VarChar(9)
+    hasCountdown        Boolean?     @default(true)
+    hasStories          Boolean?     @default(true)
+    hasQuotes           Boolean?     @default(true)
+    createdAt           DateTime    @default(now())
+    updatedAt           DateTime?   @updatedAt
+    deletedAt           DateTime?
+}
+//themeId             Int
+//theme
+//packageId       Int
+
+
+enum UserType {
+  admin
+  client
 }

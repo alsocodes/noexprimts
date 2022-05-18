@@ -6,8 +6,14 @@ class UserService {
     getUser = async (data: any) => {
         try {
             const { offset, limit, pageSize, search } = data;
+            const where = {
+                name: {
+                    contains: search,
+                },
+            };
             const { _count } = await prisma.user.aggregate({
                 _count: { id: true },
+                where: where,
             });
 
             const users = await prisma.user.findMany({
@@ -16,18 +22,14 @@ class UserService {
                     name: true,
                     email: true,
                 },
-                where: {
-                    name: {
-                        contains: search,
-                    },
-                },
+                where: where,
                 skip: offset || 0,
                 take: limit || 10,
             });
 
             const result = {
-                totalCount: _count,
-                totalPage: Math.ceil(Number(_count) / pageSize),
+                totalCount: _count.id,
+                totalPage: Math.ceil(Number(_count.id) / pageSize),
                 rows: users,
             };
             return result;
@@ -100,13 +102,18 @@ class UserService {
     //     }
     // };
 
-    // findByEmail = async (data: any) => {
-    //     try {
-    //         return await db.User.findOne({ where: { email: data } });
-    //     } catch (error) {
-    //         throw error;
-    //     }
-    // };
+    findByEmail = async (data: any) => {
+        try {
+            return await prisma.user.findUnique({
+                select: {
+                    email: true,
+                },
+                where: { email: data },
+            });
+        } catch (error) {
+            throw error;
+        }
+    };
 }
 
 export default UserService;

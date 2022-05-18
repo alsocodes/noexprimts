@@ -18,12 +18,15 @@ prisma.$use(async (params, next) => {
         params.args.where['deletedAt'] = null;
     }
     if (params.action === 'findMany') {
-        console.log('args', params.args);
         if (!params.args) params['args'] = {};
         if (params.args.where) {
             if (params.args.where.deleted === undefined) {
                 params.args.where['deletedAt'] = null;
             }
+            const wheres = params.args.where;
+            Object.keys(wheres).forEach((item) => {
+                if (wheres[item]?.contains === '') delete wheres[item];
+            });
         } else {
             params.args['where'] = { deletedAt: null };
         }
