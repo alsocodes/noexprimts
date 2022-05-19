@@ -15,7 +15,12 @@ userRoute.post(
     authAccessToken,
     controller.postUser
 );
-// userRoute.post('/user', authAccessToken, controller.postUser);
+userRoute.post(
+    '/user/register',
+    userValidator('createUser'),
+    validator,
+    controller.postUser
+);
 // userRoute.put('/user/:publicId', userValidator('updateUser'), validator, controller.putUser);
 // userRoute.delete('/user/:publicId', userValidator('deleteUser'), validator, controller.deleteUser);
 

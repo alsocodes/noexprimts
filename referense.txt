@@ -3,3 +3,6 @@ https://www.robinwieruch.de/prettier-eslint/
 
 Soft Delete
 https://www.prisma.io/docs/concepts/components/prisma-client/middleware/soft-delete-middleware
+
+Extend Express Request
+https://stackoverflow.com/a/65538804/11104796

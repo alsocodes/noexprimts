@@ -1,7 +1,7 @@
 /**
  * Required External Modules
  */
-import express, { Request, Response, Router } from 'express';
+import express, { Request, Response } from 'express';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -10,6 +10,7 @@ import helmet from 'helmet';
 
 // routes
 import userRoute from './api/user/user.route';
+import authRoute from './api/auth/auth.route';
 
 /**
  * App Variables
@@ -31,9 +32,11 @@ app.use(express.json());
 /**
  * Server Activation
  */
-
+console.log(process.env.NODE_ENV);
 app.get('/', (req: Request, res: Response) => {
-    res.send({ message: 'Hello i am readyx' });
+    const a = req;
+    res.send({ message: 'Hello i am ready' });
 });
 
 app.use('/api', userRoute);
+app.use('/api', authRoute);

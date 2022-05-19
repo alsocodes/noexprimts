@@ -32,8 +32,15 @@ const userValidator = (method: string) => {
                     .withMessage(
                         'Must contain number 0-9, capitalize a-z A-Z, and symbol !@#$%^&*'
                     ),
+                body('userType')
+                    .exists()
+                    .isIn(['admin', 'client'])
+                    .withMessage(
+                        'UserType invalid, must be one of admin or client'
+                    ),
             ];
         }
+
         case 'updateUser': {
             return [
                 body('name')
